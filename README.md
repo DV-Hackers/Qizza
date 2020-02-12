@@ -6,8 +6,6 @@ This project is being created by members of the [DVHackers](http://www.dvhackers
 
 # Organization
 This project is split into 3 main parts:
-*The Frontend: Building a visually appealing graphical representation of the simulation in HTML/CSS
-*The Backend:
-...*The Environment: Handles game state, and reward table, Python
-...*The agent: Handles the Q-learning algorithm (Q-table, Q-function)
-*The Controller: A websocket to provide quick connection between the backend and frontend, Python
+* The Frontend: Building a visually appealing graphical representation of the simulation in HTML/CSS
+* The Backend: The Environment - Handles game state, and reward table, Python. The Agent - Handles the Q-learning algorithm (Q-table, Q-function)
+* The Controller: A websocket to provide quick connection between the backend and frontend, Python
