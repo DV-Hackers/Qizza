@@ -3,8 +3,16 @@ The self-driving pizza delivery robot! This project is an exploration into the r
 
 This project is being created by members of the [DVHackers](http://www.dvhackers.com), a Computer Science club at Diablo Valley College.
 
+# Running The Project
+To download dependencies:
+```
+mkdir venv
+python3 -m venv venv
+. venv/bin/activate
+pip install -r requirements.txt
+```
 
-# Organization
+# Overview
 This project is split into 3 main parts:
 * The Frontend: Building a visually appealing graphical representation of the simulation in HTML/CSS
 * The Backend: The Environment - Handles game state, and reward table, Python. The Agent - Handles the Q-learning algorithm (Q-table, Q-function)
