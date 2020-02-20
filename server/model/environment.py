@@ -1,7 +1,9 @@
 import random
 
 """
-rewards list indices-
+IMPLEMENTATION NOTES
+
+rewards list indices -
 0: go up
 1: go right
 2: go down
@@ -10,6 +12,9 @@ rewards list indices-
 5: dropoff
 6: time
 
+I realized last night that creating a table storing all possible action results (reward_table) is better than computing
+the result of an action on the fly because we will potentially have to compute the same action thousandss of times. So
+this class reflects that.
 
 for simplicity obstacles can only be on top, right, or both top & right sides of a coordinate.
 This is done so that multiple coordinates can't map to the same obstacle.
@@ -142,6 +147,17 @@ class Environment:
     out['x'] = i % self.size
 
     return out
+
+  def step(self, action):
+    """
+    perform one time step action.
+    :param action: int, action taken by agent
+    :return: dict, {new state, reward, done}
+    """
+    # TODO: Complete this method
+    pass
+
+# test driver
 
 obstacles = {
   (0, 0): 1,
