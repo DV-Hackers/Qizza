@@ -1,19 +1,22 @@
 import random
+from server.util import table
+class Environment:
+  num_of_pizza_place = 2
+  num_of_possible_action = 6
 
-class Environment ():
+  def __init__(self, size, obstacles, home,rewards,store):
+    self.size = size
+    self.obstacles = obstacles
+    self.home = home
+    self.rewards = rewards
+    self.store = store
+    self.current_state = 0
+    self.goal = 0
 
-  def __init__(self):
-    self.size = 5
-    self.obstacles = [(0,0,'R'),(0,1,'L')]
-    self.dropoff_locs = [(random.randint(0,5),(random.randint(0,5))),((random.randint(0,5),(random.randint(0,5))))]
-    self.rewards = {'c_del': 10,'i_del': -10, 'c_pick': 10, 'i_pick':-10, 'time': -1}
-    self.pickup_loc = (random.randint(0, 5), (random.randint(0, 5)))
+    action_space = size ** 2 * self.num_of_pizza_place * self.num_of_possible_action
 
-    state = {'x': random.randint(self.size), 'y': random.randint(self.size), 'pizza': None }
 
-  def step(self,action):
 
-    pass
 
 
 
