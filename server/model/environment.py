@@ -104,13 +104,13 @@ class Environment:
               # going up or right
               if 1 >= action != obstacle_loc and obstacle_loc != 2:
                 if action == 0:
-                  new_y = min(self.size - 1, y + 1)
+                  new_y = max(0, y - 1)
                 else:
                   new_x = min(self.size - 1, x + 1)
 
               # down
               elif action == 2 and down_coord_obstacle != 2 and down_coord_obstacle != 0:
-                new_y = max(0, y - 1)
+                new_y = min(self.size - 1, y + 1)
 
               # left
               elif action == 3 and left_coord_obstacle != 2 and left_coord_obstacle != 1:
