@@ -1,5 +1,5 @@
 import random
-from util.table import Table
+from server.util.table import Table
 
 """
 IMPLEMENTATION NOTES:
@@ -104,13 +104,13 @@ class Environment:
               # going up or right
               if 1 >= action != obstacle_loc and obstacle_loc != 2:
                 if action == 0:
-                  new_y = min(self.size - 1, y + 1)
+                  new_y = max(0, y - 1)
                 else:
                   new_x = min(self.size - 1, x + 1)
 
               # down
               elif action == 2 and down_coord_obstacle != 2 and down_coord_obstacle != 0:
-                new_y = max(0, y - 1)
+                new_y = min(self.size - 1, y + 1)
 
               # left
               elif action == 3 and left_coord_obstacle != 2 and left_coord_obstacle != 1:
@@ -213,21 +213,25 @@ store = (2, 2)
 
 env = Environment(5, homes, store, obstacles, rewards)
 
-# epochs = penalties = rewards = 0
-#
-# done = False
-#
-# print(len(env.reward_table.arr[0]))
-# while not done:
-#   action = random.randint(0, 5)
-#   # print('action:', action)
-#   res = env.step(action)
-#   # print('result:', res)
-#
-#   if res['reward'] == -10:
-#     penalties += 1
-#
-#   epochs += 1
-#
-# print("Time steps taken: {}".format(epochs))
-# print("Penalties incurred: {}".format(penalties))
+epochs = penalties = rewards = 0
+
+done = False
+
+print(len(env.reward_table.arr[0]))
+while not done:
+  action = random.randint(0, 5)
+  # print('action:', action)
+  res = env.step(action)
+  # print('result:', res)
+
+  if res['reward'] == -10:
+    penalties += 1
+
+  print(res)
+
+  done = res['done']
+
+  epochs += 1
+
+print("Time steps taken: {}".format(epochs))
+print("Penalties incurred: {}".format(penalties))
