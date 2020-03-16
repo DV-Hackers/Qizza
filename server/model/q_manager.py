@@ -31,7 +31,7 @@ class QManager:
 
     done = False
     if action_result['done']:
-      return True
+      done = True
 
     return {'done': done, 'reward': reward}
 
@@ -50,18 +50,19 @@ class QManager:
     return {'steps': steps, 'penalties': penalties}
 
   def train(self, num_eps):
-    # perform multiple episodes of training up to a desired fitness (currently a number of episodes)
     ep_count = 0
     for i in range(num_eps):
       episode_result = self.episode()
-      print('episode ', ep_count, ':')
-      print('total steps: ', episode_result['steps'])
-      print('penalties: ', episode_result['penalties'], '\n')
-      ep_count += 1
 
-      self.explore_rate -= 0.01
-      self.agent.learn_rate -= 0.01
-      # self.agent.discount_factor -= 0.01
+      if (i % 50 == 0):
+        print('episode ', ep_count, ':')
+        print('total steps: ', episode_result['steps'])
+        print('penalties: ', episode_result['penalties'], '\n')
+
+      self.explore_rate *= 0.99
+      self.agent.learn_rate *= 0.99
+
+      ep_count += 1
 
 
 #### TEST DRIVER ####
@@ -92,3 +93,4 @@ learn_rate = 0.1
 discount_factor = 0.6
 
 qm = QManager(explore_rate, learn_rate, discount_factor, size, homes, store, obstacles, rewards)
+qm.train(500)
