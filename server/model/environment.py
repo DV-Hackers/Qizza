@@ -59,7 +59,7 @@ class Environment:
     self.curr_state = 0
     self.goal = 0
 
-    state_space = self.size ** 2 * self.pizza_space * len(self.homes)
+    self.state_space = self.size ** 2 * self.pizza_space * len(self.homes)
     self.reward_table = Table(state_space, self.action_space)
 
     self.reset()
@@ -188,6 +188,9 @@ class Environment:
     out['x'] = i
 
     return out
+
+  def get_max_reward(self):
+    return max(self.reward_table.arr[self.curr_state])
 
 
 #### TEST DRIVER ####
