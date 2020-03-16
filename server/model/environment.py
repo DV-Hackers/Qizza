@@ -60,7 +60,7 @@ class Environment:
     self.goal = 0
 
     self.state_space = self.size ** 2 * self.pizza_space * len(self.homes)
-    self.reward_table = Table(state_space, self.action_space)
+    self.reward_table = Table(self.state_space, self.action_space)
 
     self.reset()
     self.init_table()
@@ -190,51 +190,56 @@ class Environment:
     return out
 
   def get_max_reward(self):
-    return max(self.reward_table.arr[self.curr_state])
+    reward = self.reward_table.arr[self.curr_state][0]['reward']
+    for outcome in self.reward_table.arr[self.curr_state]:
+      if outcome['reward'] > reward:
+        reward = outcome['reward']
+
+    return reward
 
 
-#### TEST DRIVER ####
-
-obstacles = {
-  (0, 0): 1,
-  (0, 1): 2
-}
-
-rewards = {
-  'pickup': {'pos': 10, 'neg': -10},
-  'drop': {'pos': 10, 'neg': -10},
-  'time': -1
-}
-
-homes = [
-  (0, 1),
-  (3, 2),
-  (4, 3)
-]
-
-store = (2, 2)
-
-env = Environment(5, homes, store, obstacles, rewards)
-
-epochs = penalties = rewards = 0
-
-done = False
-
-print(len(env.reward_table.arr[0]))
-while not done:
-  action = random.randint(0, 5)
-  # print('action:', action)
-  res = env.step(action)
-  # print('result:', res)
-
-  if res['reward'] == -10:
-    penalties += 1
-
-  print(res)
-
-  done = res['done']
-
-  epochs += 1
-
-print("Time steps taken: {}".format(epochs))
-print("Penalties incurred: {}".format(penalties))
+# #### TEST DRIVER ####
+#
+# obstacles = {
+#   (0, 0): 1,
+#   (0, 1): 2
+# }
+#
+# rewards = {
+#   'pickup': {'pos': 10, 'neg': -10},
+#   'drop': {'pos': 10, 'neg': -10},
+#   'time': -1
+# }
+#
+# homes = [
+#   (0, 1),
+#   (3, 2),
+#   (4, 3)
+# ]
+#
+# store = (2, 2)
+#
+# env = Environment(5, homes, store, obstacles, rewards)
+#
+# epochs = penalties = rewards = 0
+#
+# done = False
+#
+# print(len(env.reward_table.arr[0]))
+# while not done:
+#   action = random.randint(0, 5)
+#   # print('action:', action)
+#   res = env.step(action)
+#   # print('result:', res)
+#
+#   if res['reward'] == -10:
+#     penalties += 1
+#
+#   print(res)
+#
+#   done = res['done']
+#
+#   epochs += 1
+#
+# print("Time steps taken: {}".format(epochs))
+# print("Penalties incurred: {}".format(penalties))
