@@ -158,7 +158,7 @@ class Environment:
     Encodes a state to a unique integer.
     :param x: int, x-coord
     :param y: int, y-coord
-    :param pizza_loc: int, [0, 1] whther pizza is at store or in car
+    :param pizza_loc: int, [0, 1] whether pizza is at store or in car
     :param dest_idx: int, index of the destination
     :return: int, unique integer state.
     """

@@ -16,8 +16,7 @@ class QManager:
   def step(self):
     init_state = self.env.curr_state
 
-    # action = -1
-    if random() <= self.explore_rate:
+    if random() < self.explore_rate:
       action = randrange(0, 6)
     else:
       action = self.agent.get_best_action(init_state)
@@ -28,6 +27,10 @@ class QManager:
     max_future_reward = self.env.get_max_reward()
 
     self.agent.update(init_state, action, reward, max_future_reward)
+
+    # testing console logs
+    m = self.env.decode(action_result['result'])
+    print(m)
 
     done = False
     if action_result['done']:
@@ -43,6 +46,7 @@ class QManager:
     while not done:
       step_result = self.step()
       done = step_result['done']
+
       if step_result['reward'] == -10:
         penalties += 1
       steps += 1
@@ -54,13 +58,13 @@ class QManager:
     for i in range(num_eps):
       episode_result = self.episode()
 
-      if (i % 50 == 0):
-        print('episode ', ep_count, ':')
-        print('total steps: ', episode_result['steps'])
-        print('penalties: ', episode_result['penalties'], '\n')
+      # if (i % 1000 == 0):
+      print('episode ', ep_count, ': LR = ', self.agent.learn_rate, ' ER = ', self.explore_rate)
+      print('total steps: ', episode_result['steps'])
+      print('penalties: ', episode_result['penalties'], '\n')
 
-      self.explore_rate *= 0.99
-      self.agent.learn_rate *= 0.99
+      self.explore_rate *= 0.999
+      self.agent.learn_rate *= 0.999
 
       ep_count += 1
 
@@ -93,4 +97,4 @@ learn_rate = 0.1
 discount_factor = 0.6
 
 qm = QManager(explore_rate, learn_rate, discount_factor, size, homes, store, obstacles, rewards)
-qm.train(500)
+qm.train(5000)
