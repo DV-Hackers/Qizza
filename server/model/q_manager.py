@@ -15,11 +15,14 @@ class QManager:
 
   def step(self):
     init_state = self.env.curr_state
-
+    print('possible actions: ', self.agent.q_table.arr[init_state])
     if random() < self.explore_rate:
       action = randrange(0, 6)
+      print('action taken (explore): ', action)
     else:
       action = self.agent.get_best_action(init_state)
+      print('action taken (exploit): ', action)
+
 
     action_result = self.env.step(action)
 
@@ -39,6 +42,7 @@ class QManager:
     return {'done': done, 'reward': reward}
 
   def episode(self):
+    self.env.reset()
     done = False
     steps = 0
     penalties = 0
@@ -97,4 +101,4 @@ learn_rate = 0.1
 discount_factor = 0.6
 
 qm = QManager(explore_rate, learn_rate, discount_factor, size, homes, store, obstacles, rewards)
-qm.train(5000)
+qm.train(500)
