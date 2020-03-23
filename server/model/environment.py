@@ -70,7 +70,7 @@ class Environment:
     pick new random goal and create new random state.
     :return: int, new state
     """
-    self.goal = 1 #random.randint(0, len(self.homes) - 1)
+    self.goal = 0 #random.randint(0, len(self.homes) - 1)
 
     curr_location = (random.randint(0, self.size-1), random.randint(0, self.size-1))
     bad_starts = self.homes + [self.store]

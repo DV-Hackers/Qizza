@@ -69,10 +69,13 @@ class QManager:
 
       if self.explore_rate > 0.1:
         self.explore_rate *= 0.999
-      if self.agent.learn_rate > 0.01:
-        self.agent.learn_rate *= 0.999
+      # if self.agent.learn_rate > 0.01:
+      #   self.agent.learn_rate *= 0.999
 
       ep_count += 1
+
+  def print_Q_table(self):
+    self.agent.q_table.print()
 
 
 #### TEST DRIVER ####
@@ -104,3 +107,4 @@ discount_factor = 0.6
 
 qm = QManager(explore_rate, learn_rate, discount_factor, size, homes, store, obstacles, rewards)
 qm.train(2000)
+# qm.print_Q_table()
