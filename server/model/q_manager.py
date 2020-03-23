@@ -42,7 +42,7 @@ class QManager:
     return {'done': done, 'reward': reward}
 
   def episode(self):
-    self.env.reset()
+    # self.env.reset()
     done = False
     steps = 0
     penalties = 0
@@ -67,8 +67,10 @@ class QManager:
       print('total steps: ', episode_result['steps'])
       print('penalties: ', episode_result['penalties'], '\n')
 
-      self.explore_rate *= 0.999
-      self.agent.learn_rate *= 0.999
+      if self.explore_rate > 0.1:
+        self.explore_rate *= 0.999
+      if self.agent.learn_rate > 0.01:
+        self.agent.learn_rate *= 0.999
 
       ep_count += 1
 
@@ -101,4 +103,4 @@ learn_rate = 0.1
 discount_factor = 0.6
 
 qm = QManager(explore_rate, learn_rate, discount_factor, size, homes, store, obstacles, rewards)
-qm.train(500)
+qm.train(2000)
