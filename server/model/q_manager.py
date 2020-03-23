@@ -27,7 +27,12 @@ class QManager:
     action_result = self.env.step(action)
 
     reward = action_result['reward']
-    max_future_reward = self.env.get_max_reward()
+
+    new_state = self.env.curr_state
+    max_q_index = self.agent.get_best_action(new_state)
+    max_q_new_state = self.agent.q_table.arr[new_state][max_q_index]
+
+    max_future_reward = max_q_new_state  # self.env.get_max_reward()
 
     self.agent.update(init_state, action, reward, max_future_reward)
 
@@ -65,12 +70,13 @@ class QManager:
       # if (i % 1000 == 0):
       print('episode ', ep_count, ': LR = ', self.agent.learn_rate, ' ER = ', self.explore_rate)
       print('total steps: ', episode_result['steps'])
-      print('penalties: ', episode_result['penalties'], '\n')
+      print('penalties: ', episode_result['penalties'])
+      print('goal was: ', self.env.goal, '\n')
 
       if self.explore_rate > 0.1:
         self.explore_rate *= 0.999
-      # if self.agent.learn_rate > 0.01:
-      #   self.agent.learn_rate *= 0.999
+      if self.agent.learn_rate > 0.01:
+        self.agent.learn_rate *= 0.999
 
       ep_count += 1
 
@@ -106,5 +112,5 @@ learn_rate = 0.1
 discount_factor = 0.6
 
 qm = QManager(explore_rate, learn_rate, discount_factor, size, homes, store, obstacles, rewards)
-qm.train(2000)
+qm.train(20000)
 # qm.print_Q_table()

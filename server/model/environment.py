@@ -70,7 +70,7 @@ class Environment:
     pick new random goal and create new random state.
     :return: int, new state
     """
-    self.goal = 0 #random.randint(0, len(self.homes) - 1)
+    self.goal = random.randint(0, len(self.homes) - 1)
 
     curr_location = (random.randint(0, self.size-1), random.randint(0, self.size-1))
     bad_starts = self.homes + [self.store]
@@ -189,13 +189,13 @@ class Environment:
 
     return out
 
-  def get_max_reward(self):
-    reward = self.reward_table.arr[self.curr_state][0]['reward']
-    for outcome in self.reward_table.arr[self.curr_state]:
-      if outcome['reward'] > reward:
-        reward = outcome['reward']
-
-    return reward
+  # def get_max_reward(self):
+  #   reward = self.reward_table.arr[self.curr_state][0]['reward']
+  #   for outcome in self.reward_table.arr[self.curr_state]:
+  #     if outcome['reward'] > reward:
+  #       reward = outcome['reward']
+  #
+  #   return reward
 
 
 # #### TEST DRIVER ####

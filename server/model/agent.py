@@ -1,5 +1,5 @@
 from server.util.table import Table
-
+from random import choice
 
 class Agent:
   def __init__(self, learn_rate, discount_factor, num_states, num_actions):
@@ -22,3 +22,19 @@ class Agent:
     max_idx = self.q_table.arr[state].index(max_val)
 
     return max_idx
+
+    # max_indices = [0];
+    # max_val = self.q_table.arr[state][0];
+    #
+    # for c in range(len(self.q_table.arr[state])):
+    #   val = self.q_table.arr[state][c]
+    #   if val > max_val:
+    #     max_val = val
+    #     max_indices.clear()
+    #     max_indices.append(c)
+    #   elif val == max_val:
+    #     max_indices.append(c)
+    #
+    #
+    # return choice(max_indices)
+
